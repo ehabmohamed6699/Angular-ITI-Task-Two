@@ -1,0 +1,30 @@
+<div class="min-h-[80vh] p-6">
+    <select [(ngModel)]="selectedCategory" class="select mb-8 select-bordered w-full max-w-xs">
+        <option value="0">All</option>
+        <option *ngFor="let category of categoriesList" [value]="category.id">{{category.name}}</option>
+    </select>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <ng-container *ngFor="let product of getProductsByCategory()">
+            <div appProdCart="shadow-2xl" [bgColor]="'bg-base-100'" [isLast]="product.quantity == 1" *ngIf="product.quantity > 0" [ngClass]="{'border-2': product.quantity == 1, 'border-red-500': product.quantity == 1}" class="card overflow-hidden w-96 shadow-md relative transition-[box-shadow] duration-500">
+                <div class="badge badge-primary text-white badge-lg absolute top-4 left-4">{{product.quantity}} items left</div>
+                <figure>
+                  <img
+                    class="h-64 w-full object-cover"
+                    [src]="product.img"
+                    [alt]="product.name" />
+                </figure>
+                <div class="card-body">
+                  <h2 class="card-title">
+                    {{product.name}}
+                    <div *ngIf="product.discount" class="badge badge-secondary">{{product.discount}}% off</div>
+                  </h2>
+                    <div class="flex gap-0">
+                        <p class="text-base font-bold" [class.text-red-500]="product.discount" [class.line-through]="product.discount">{{product.price | currency:"EGP"}}</p>
+                        <p class="text-base font-bold" >{{ getFinalPrice(product) | currency:"EGP"}}</p>
+                    </div>
+                    <button (click)="addToCart(product)" class="btn btn-primary w-fit">Add to cart</button>
+                </div>
+              </div>
+        </ng-container>
+    </div>
+</div>
