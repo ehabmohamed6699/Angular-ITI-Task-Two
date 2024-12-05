@@ -1,0 +1,30 @@
+<div class="min-h-[80vh] p-6">
+    <select #categorySelect [(ngModel)]="selectedCategory" class="select mb-8 select-bordered w-full max-w-xs">
+        <option value="0">All</option>
+        <option *ngFor="let category of categoriesList" [value]="category.id">{{category.name}}</option>
+    </select>
+    <p>Total price: {{totalPrice | currency}}</p>
+    <div class="overflow-x-auto">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cartItem of cart; let i = index">
+                <td>{{cartItem.name}}</td>
+                <td><input type="number" min="1" [value]="cartItem.quantity" (change)="calculateTotalPrice()" (input)="cartItem.quantity = +getValue($event)" class="input input-bordered w-full max-w-xs" /></td>
+                <td>{{cartItem.price}}</td>
+                <td>{{cartItem.price * cartItem.quantity}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-primary my-4" (click)="checkout()">Checkout</button>
+    <app-products [selectedCategory]="selectedCategory" (purchasedProduct)="checkPurchasedProduct($event)"></app-products>
+</div>

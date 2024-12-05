@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { ProdCartDirective } from './directives/prod-cart.directive';
 import { DateFormatterPipe } from './pipes/date-formatter.pipe';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DateFormatterPipe } from './pipes/date-formatter.pipe';
     ProductsComponent,
     FooterComponent,
     ProdCartDirective,
-    DateFormatterPipe
+    DateFormatterPipe,
+    CartComponent
   ],
   imports: [
     BrowserModule,

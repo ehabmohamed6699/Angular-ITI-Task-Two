@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input,EventEmitter, OnInit, Output } from '@angular/core';
 import { DiscountAmount } from 'src/app/model/DiscountAmount.enum';
 import { ICategory } from 'src/app/model/ICategory';
 import { IProduct } from 'src/app/model/IProduct';
+import { IShoopingCartItem } from 'src/app/model/IShoopingCartItem';
 
 @Component({
   selector: 'app-products',
@@ -9,18 +10,13 @@ import { IProduct } from 'src/app/model/IProduct';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
-  categoriesList: ICategory[];
   productsList:IProduct[];
-  selectedCategory: number = 0;
+  @Input() selectedCategory: number = 0;
+  @Output() purchasedProduct: EventEmitter<IShoopingCartItem>;
+  
   cart: IProduct[] = [];
   constructor(){
-    this.categoriesList = [
-      {id: 1, name: 'Electronics'},
-      {id: 2, name: 'Clothes'},
-      {id: 3, name: 'Shoes'},
-    ]
-
+    this.purchasedProduct = new EventEmitter<IShoopingCartItem>();
     this.productsList = [
       {
         id: 1,
@@ -86,13 +82,33 @@ export class ProductsComponent implements OnInit {
 
   addToCart(product: IProduct){
     if(product.quantity > 0){
-      product.quantity--;
-      this.cart.push(product);
+      // product.quantity--;
+      this.purchasedProduct.emit({
+        id: product.id,
+        name: product.name,
+        price: this.getFinalPrice(product),
+        quantity: 1
+      })
     }
   }
 
+  checkout(cart: IShoopingCartItem[]): boolean{
+    for (let product of cart) {
+      let index = this.productsList.findIndex((p) => p.id == product.id);
+      if (this.productsList[index].quantity < product.quantity) {
+        return false;
+      }
+    }
+
+    cart.forEach((product) => {
+      let index = this.productsList.findIndex((p) => p.id == product.id);
+      this.productsList[index].quantity -= product.quantity;
+    })
+    return true;
+  }
+
   getFinalPrice(product: IProduct): number{
-    return product.price - (product.price * Number(product?.discount) / 100);
+    return product.price - (product.price * Number(product?.discount || 0) / 100);
   }
 
   ngOnInit(): void {
