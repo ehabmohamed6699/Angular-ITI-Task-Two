@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ICategory } from 'src/app/model/ICategory';
 import { IShoopingCartItem } from 'src/app/model/IShoopingCartItem';
 import { ProductsComponent } from '../products/products.component';
+import { CartService } from 'src/app/services/cart-service.service';
+import { CategoriesService } from 'src/app/services/categories-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -9,31 +11,38 @@ import { ProductsComponent } from '../products/products.component';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit, AfterViewInit {
-  categoriesList: ICategory[];
-  selectedCategory: number = 0;
-  cart:IShoopingCartItem[];
   @ViewChild('categorySelect') categorySelect !: ElementRef;
   @ViewChild(ProductsComponent) productsComponent !: ProductsComponent;
-  totalPrice: number;
-  constructor() {
-    this.categoriesList = [
-      {id: 1, name: 'Electronics'},
-      {id: 2, name: 'Clothes'},
-      {id: 3, name: 'Shoes'},
-    ]
-    this.cart = [];
-    this.totalPrice = 0;
+
+  categories: ICategory[] = this.categoriesService.getCategories();
+  selectedCategory: number = this.categoriesService.getSelectedCategory();
+
+  totalPrice: number = this.cartService.getTotalPrice();
+  cart: IShoopingCartItem[] = this.cartService.getCart();
+  constructor(
+    private cartService: CartService,
+    private categoriesService: CategoriesService
+  ) {
+    
+    
+  }
+  ngOnInit(): void {
+    this.categories = this.categoriesService.getCategories();
+    this.selectedCategory = this.categoriesService.getSelectedCategory();
+    this.totalPrice = this.cartService.getTotalPrice();
+    this.cart = this.cartService.getCart();
   }
   ngAfterViewInit(): void {
     this.categorySelect.nativeElement.classList.add('select-primary');
   }
+  
+  calculateTotalPrice(): void{
+    this.cartService.calculateTotalPrice();
+    this.totalPrice = this.cartService.getTotalPrice();
+  }
+
   checkPurchasedProduct(event: IShoopingCartItem): void{
-    let index = this.cart.findIndex((product) => product.id == event.id);
-    if(index == -1){
-      this.cart.push(event);
-    }else{
-      this.cart[index].quantity += event.quantity;
-    }
+    this.cartService.checkPurchasedProduct(event);
     this.calculateTotalPrice();
   }
 
@@ -41,21 +50,14 @@ export class CartComponent implements OnInit, AfterViewInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  calculateTotalPrice():void{
-    this.cart.forEach((product) => {
-      this.totalPrice += product.price * product.quantity;
-    })
-
-    this.totalPrice += this.totalPrice * 0.14;
-  }
+  
 
   checkout():void{
-    if (this.productsComponent.checkout(this.cart)){
-      this.cart = [];
-      this.totalPrice = 0;
+    if (this.productsComponent.checkout(this.cartService.getCart())){
+      this.cartService.setCart([]);
+      this.cartService.setTotalPrice(0);
+      this.cart = this.cartService.getCart();
     }
-  }
-  ngOnInit(): void {
   }
 
 }

@@ -10,6 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { ProdCartDirective } from './directives/prod-cart.directive';
 import { DateFormatterPipe } from './pipes/date-formatter.pipe';
 import { CartComponent } from './components/cart/cart.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { CartComponent } from './components/cart/cart.component';
     FooterComponent,
     ProdCartDirective,
     DateFormatterPipe,
-    CartComponent
+    CartComponent,
+    HomeComponent,
+    AboutUsComponent,
+    ContactUsComponent,
+    PageNotFoundComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

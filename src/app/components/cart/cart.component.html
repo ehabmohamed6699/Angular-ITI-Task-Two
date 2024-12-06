@@ -1,9 +1,9 @@
 <div class="min-h-[80vh] p-6">
     <select #categorySelect [(ngModel)]="selectedCategory" class="select mb-8 select-bordered w-full max-w-xs">
         <option value="0">All</option>
-        <option *ngFor="let category of categoriesList" [value]="category.id">{{category.name}}</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
     </select>
-    <p>Total price: {{totalPrice | currency}}</p>
+    <p>Total price: {{totalPrice | currency:"EGP"}}</p>
     <div class="overflow-x-auto">
         <table class="table">
           <!-- head -->

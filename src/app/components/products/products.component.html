@@ -15,10 +15,13 @@
                   <div *ngIf="product.discount" class="badge badge-secondary">{{product.discount}}% off</div>
                 </h2>
                   <div class="flex gap-0">
-                      <p class="text-base font-bold" [class.text-red-500]="product.discount" [class.line-through]="product.discount">{{product.price | currency:"EGP"}}</p>
+                      <p class="text-base font-bold" *ngIf="product.discount" [class.text-red-500]="product.discount" [class.line-through]="product.discount">{{product.price | currency:"EGP"}}</p>
                       <p class="text-base font-bold" >{{ getFinalPrice(product) | currency:"EGP"}}</p>
                   </div>
-                  <button (click)="addToCart(product)" class="btn btn-primary w-fit">Add to cart</button>
+                  <div class="flex gap-2">
+                    <button (click)="addToCart(product)" class="btn btn-primary w-fit">Add to cart</button>
+                    <button (click)="viewProductDetails(product.id)" class="btn btn-primary w-fit">View Details</button>
+                  </div>
               </div>
             </div>
       </ng-container>

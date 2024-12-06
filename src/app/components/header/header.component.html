@@ -1,7 +1,12 @@
 <div class="navbar h-[10vh] bg-base-100">
     <div class="flex-1">
       <a class="btn btn-ghost text-xl">daisyUI</a>
-      <p>{{user.nid | dateFormatter:"FullDate"}}</p>
+      <ul class="flex items-center gap-4">
+        <li><a class="btn btn-ghost" routerLink="home" routerLinkActive="btn-active">Home</a></li>
+        <li><a class="btn btn-ghost" routerLink="products" routerLinkActive="btn-active">Products</a></li>
+        <li><a class="btn btn-ghost" routerLink="about" routerLinkActive="btn-active">About</a></li>
+        <li><a class="btn btn-ghost" routerLink="contact" routerLinkActive="btn-active">Contact</a></li>
+      </ul>
     </div>
     <div class="flex-none">
       <div class="dropdown dropdown-end">
@@ -19,15 +24,15 @@
                 stroke-width="2"
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
-            <span class="badge badge-sm indicator-item">8</span>
+            <span class="badge badge-sm indicator-item">{{getCartLength()}}</span>
           </div>
         </div>
         <div
           tabindex="0"
           class="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
           <div class="card-body">
-            <span class="text-lg font-bold">8 Items</span>
-            <span class="text-info">Subtotal: $999</span>
+            <span class="text-lg font-bold">{{getCartLength()}} Items</span>
+            <span class="text-info">Subtotal: {{getTotalPrice() | currency:"EGP"}}</span>
             <div class="card-actions">
               <button class="btn btn-primary btn-block">View cart</button>
             </div>
@@ -51,6 +56,7 @@
               <span class="badge">New</span>
             </a>
           </li>
+          <li><a>{{user.nid | dateFormatter:"FullDate"}}</a></li>
           <li><a>Settings</a></li>
           <li><a>Logout</a></li>
         </ul>
