@@ -1,6 +1,7 @@
 <div class="navbar h-[10vh] bg-base-100">
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl">daisyUI</a>
+      <a *ngIf="user" class="btn btn-ghost text-xl">Welcome, {{user.username}}</a>
+      <a *ngIf="!user" class="btn btn-ghost text-xl">daisyUi</a>
       <ul class="flex items-center gap-4">
         <li><a class="btn btn-ghost" routerLink="home" routerLinkActive="btn-active">Home</a></li>
         <li><a class="btn btn-ghost" routerLink="products" routerLinkActive="btn-active">Products</a></li>
@@ -56,9 +57,22 @@
               <span class="badge">New</span>
             </a>
           </li>
-          <li><a>{{user.nid | dateFormatter:"FullDate"}}</a></li>
+          <li *ngIf="user"><a>{{user.nid | dateFormatter:"FullDate"}}</a></li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li *ngIf="!user"><a routerLink="/login" class="btn btn-sm btn-primary">Login</a></li>
+          <li *ngIf="user"><button onclick="logoutModal.showModal()" class="btn btn-sm bg-red-400 text-white">Logout</button></li>
+          <dialog id="logoutModal" class="modal">
+            <div class="modal-box">
+              <h3 class="text-lg font-bold">Warning</h3>
+              <p class="py-4">Are you sure you want to logout?</p>
+              <div class="modal-action">
+                <form method="dialog">
+                  <button (click)="logout()" class="btn bg-red-400 text-white mr-2">Logout</button>
+                  <button class="btn">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </ul>
       </div>
     </div>

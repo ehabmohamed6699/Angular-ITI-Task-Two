@@ -1,0 +1,20 @@
+<div class="w-full h-screen flex items-center justify-center">
+    <form class="w-96 max-w-screen border border-base-200 shadow-lg p-8 rounded-2xl" (submit)="login()">
+        <h2 class="text-center text-2xl">Login</h2>
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Username</span>
+            </label>
+            <input #username required type="text" class="input input-bordered" placeholder="Username">
+        </div>
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Password</span>
+            </label>
+            <input #password required type="password" class="input input-bordered" placeholder="Password">
+        </div>
+        <div class="form-control mt-4">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+</div>

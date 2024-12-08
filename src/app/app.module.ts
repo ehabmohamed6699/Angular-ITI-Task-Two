@@ -15,6 +15,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     AboutUsComponent,
     ContactUsComponent,
     PageNotFoundComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    LoginComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
