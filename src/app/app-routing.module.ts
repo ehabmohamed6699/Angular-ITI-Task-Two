@@ -10,6 +10,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { LoginComponent } from './components/login/login.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
 
 const routes: Routes = [
   {path:"", component: MainLayoutComponent, children:[
@@ -18,6 +20,8 @@ const routes: Routes = [
     {path:"about", component: AboutUsComponent},
     {path:"contact", component: ContactUsComponent},
     {path:"products", component: CartComponent, canActivate: [AuthGuard]},
+    {path:"addProduct", component: AddProductComponent, canActivate: [AuthGuard]},
+    {path:"editProduct/:id", component: EditProductComponent, canActivate: [AuthGuard]},
     {path:"products/:id", component: ProductDetailsComponent, canActivate: [AuthGuard]},
   ]},
   {path: "login", component: LoginComponent},

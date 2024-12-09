@@ -1,0 +1,115 @@
+<form #productForm="ngForm" (ngSubmit)="submit()">
+    <h2 *ngIf="!editing" class="text-primary text-3xl">Add New Product</h2>
+    <h2 *ngIf="editing" class="text-primary text-3xl">Edit Product</h2>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Product Name</span>
+        </label>
+        <input #prodName="ngModel" required type="text" name="name" class="input input-bordered" placeholder="Product Name" [(ngModel)]="product.name">
+    </div>
+    <div *ngIf="!prodName.valid && !prodName.untouched" role="alert" class="alert alert-warning mt-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span *ngIf="prodName.errors?.['required']">Name is required</span>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Category</span>
+        </label>
+        <select #categorySelect="ngModel" name="catID" required [(ngModel)]="product.categoryID" class="select select-bordered w-full">
+            <option value="0" disabled>All</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="!categorySelect.valid && !categorySelect.untouched" role="alert" class="alert alert-warning mt-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span *ngIf="categorySelect.errors?.['required']">Category is required</span>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Product Price</span>
+        </label>
+        <input #prodPrice="ngModel" required name="price" type="number" min="0" class="input input-bordered" placeholder="Product Price" [(ngModel)]="product.price">
+    </div>
+    <div *ngIf="!prodPrice.valid && !prodPrice.untouched" role="alert" class="alert alert-warning mt-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span *ngIf="prodPrice.errors?.['required']">Price is required</span>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Product Quantity</span>
+        </label>
+        <input #prodQuantity="ngModel" required name="quantity" type="number" min="0" class="input input-bordered" placeholder="Product Quantity" [(ngModel)]="product.quantity">
+    </div>
+    <div *ngIf="!prodQuantity.valid && !prodQuantity.untouched" role="alert" class="alert alert-warning mt-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span *ngIf="prodQuantity.errors?.['required']">Quantity is required</span>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Product Image URL</span>
+        </label>
+        <input #prodImg="ngModel" required name="image" type="text" class="input input-bordered" placeholder="Product Image URL" [(ngModel)]="product.img">
+    </div>
+    <div *ngIf="!prodImg.valid && !prodImg.untouched" role="alert" class="alert alert-warning mt-4">
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24">
+        <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
+    <span *ngIf="prodImg.errors?.['required']">Image is required</span>
+</div>
+<div class="form-control">
+    <label class="label">
+        <span class="label-text">Product Discount (optional)</span>
+    </label>
+    <input name="discount" type="number" min="0" class="input input-bordered" placeholder="Product Discount (optional)" [(ngModel)]="product.discount">
+</div>
+<input *ngIf="!editing" type="submit" [disabled]="productForm.invalid" value="Create" class="btn btn-primary mt-4">
+<input *ngIf="editing" type="submit" [disabled]="productForm.invalid" value="Save" class="btn btn-primary mt-4">
+</form>

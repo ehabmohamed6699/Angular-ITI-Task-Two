@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -17,7 +17,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,12 +35,16 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
     PageNotFoundComponent,
     ProductDetailsComponent,
     LoginComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    AddProductComponent,
+    ProductFormComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,9 +12,24 @@
                 <p class="text-base font-bold" >{{ getFinalPrice(product) | currency:"EGP"}}</p>
             </div>
             <div class="card-actions justify-end mt-4">
-                <button [disabled]="isFirstProduct" (click)="goPrev()" class="btn btn-primary">Previous</button>
-                <button [disabled]="isLastProduct" (click)="goNext()" class="btn btn-primary">Next</button>
+                <a [routerLink]="['/editProduct', id]" class="btn btn-secondary">Edit</a>
+                <button onclick="deleteModal.showModal()" class="btn bg-red-500 text-base-100">Delete</button>
             </div>
+            <dialog id="deleteModal" class="modal">
+                <div class="modal-box">
+                  <h3 class="text-lg font-bold">Warning</h3>
+                  <p class="py-4">Are you sure you want to delete {{product?.name}}?</p>
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <button (click)="delete()" class="btn bg-red-500 text-base-100 mr-2">Delete</button>
+                      <button type="submit" class="btn">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
+            <!-- <div class="card-actions justify-end mt-4">
+                <button [disabled]="isLastProduct" (click)="goNext()" class="btn btn-primary">Next</button>
+            </div> -->
         </div>
     </div>
 </div>
