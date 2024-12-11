@@ -12,6 +12,7 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { AuthGuard } from './guards/auth.guard';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {path:"", component: MainLayoutComponent, children:[
@@ -23,8 +24,10 @@ const routes: Routes = [
     {path:"addProduct", component: AddProductComponent, canActivate: [AuthGuard]},
     {path:"editProduct/:id", component: EditProductComponent, canActivate: [AuthGuard]},
     {path:"products/:id", component: ProductDetailsComponent, canActivate: [AuthGuard]},
+    {path: "user", loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)}
   ]},
   {path: "login", component: LoginComponent},
+  {path: "register", component: RegisterComponent},
   {path:"**",component: PageNotFoundComponent}
 ];
 

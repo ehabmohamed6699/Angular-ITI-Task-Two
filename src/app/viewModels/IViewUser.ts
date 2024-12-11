@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IViewUser {
     id?: string;
     fullName: string;
     email: string;
@@ -11,4 +11,5 @@ export interface IUser {
     password: string;
     delivery: string;
     deliveryDays?: string;
+    token?: string;
 }

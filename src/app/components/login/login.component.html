@@ -1,11 +1,11 @@
 <div class="w-full h-screen flex items-center justify-center">
-    <form class="w-96 max-w-screen border border-base-200 shadow-lg p-8 rounded-2xl" (submit)="login()">
+    <form class="w-[800px] max-w-screen border border-base-200 shadow-lg p-8 rounded-2xl" (submit)="login()">
         <h2 class="text-center text-2xl">Login</h2>
         <div class="form-control">
             <label class="label">
-                <span class="label-text">Username</span>
+                <span class="label-text">Email</span>
             </label>
-            <input #username required type="text" class="input input-bordered" placeholder="Username">
+            <input #email required type="email" class="input input-bordered" placeholder="Email">
         </div>
         <div class="form-control">
             <label class="label">
@@ -16,5 +16,14 @@
         <div class="form-control mt-4">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
+        <div *ngIf="error" class="form-control mt-4 text-red-500">
+            Invalid email or password
+        </div>
+        <div class="form-control mt-4 flex items-center gap-2">
+            or
+            <a routerLink="/register" class="text-primary">Register</a>
+        </div>
+
+
     </form>
 </div>

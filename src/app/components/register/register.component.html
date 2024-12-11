@@ -1,0 +1,103 @@
+<div class="w-full h-screen flex items-center flex-col justify-center">
+    <form [formGroup]="registerForm" (submit)="register()" class="w-[800px] max-w-screen border border-base-200 shadow-lg p-8 rounded-2xl">
+        <h2 class="text-center text-2xl">Register</h2>
+        <div class="form-control mb-4">
+
+            <input formControlName="fullName" name="fullName" required type="text" class="input input-bordered" placeholder="Full Name">
+            <p *ngIf="getControl('fullName')?.errors && getControl('fullName')?.touched" class="mt-2 text-yellow-400">
+                <span *ngIf="getControl('fullName')?.errors?.['required']">Full name is required</span>
+                <span *ngIf="getControl('fullName')?.errors?.['minlength']">Full name should be at least {{getControl('fullName')?.errors?.['minlength'].requiredLength}} characters</span>
+            </p>
+        </div>
+        <div class="form-control mb-4">
+
+            <input formControlName="email" name="email" required type="email" class="input input-bordered" placeholder="Email">
+            <p *ngIf="getControl('email')?.errors && getControl('email')?.touched" class="mt-2 text-yellow-400">
+                <span *ngIf="getControl('email')?.errors?.['required']">Email is required</span>
+                <span *ngIf="getControl('email')?.errors?.['email']">This format is not correct for an email</span>
+                <span *ngIf="getControl('email')?.errors?.['emailTaken']">This email is already taken</span>
+            </p>
+        </div>
+        <div class="form-control mb-4">
+            <ng-container formArrayName="phones" *ngFor="let phoneNo of phones?.controls; let i = index">
+                <input [formControlName]="i" [name]="i" required type="text" class="input input-bordered" [placeholder]="'Phone '+(i+1)">
+                <p *ngIf="getPhoneChild(i)?.errors && getPhoneChild(i)?.touched" class="mt-2 text-yellow-400">
+                    <span *ngIf="getPhoneChild(i)?.errors?.['required']">Phone {{i+1}} is required</span>
+                    <span *ngIf="getPhoneChild(i).errors?.['pattern']">This format is not correct for a phone</span>
+                </p>
+                <button [disabled]="!phonesValid" (click)="addPhone()" *ngIf="i == phoneLength - 1" class="self-start btn btn-primary mt-4 text-xl">+</button>
+                <button (click)="deletePhone(i)" *ngIf="i < phoneLength - 1" class="self-start mb-4 btn btn-primary mt-4 text-xl">-</button>
+            </ng-container>
+        </div>
+
+        <ng-container formGroupName="address">
+            <div class="form-control mb-4">
+                <input formControlName="city" name="city" required type="text" class="input input-bordered" placeholder="City">
+                <p *ngIf="getChildControl(getControl('address'),'city')?.errors && getChildControl(getControl('address'),'city')?.touched" class="mt-2 text-yellow-400">
+                    <span *ngIf="getChildControl(getControl('address'),'city')?.errors?.['required']">City is required</span>
+                    <span *ngIf="getChildControl(getControl('address'),'city')?.errors?.['minlength']">City must be at least {{getChildControl(getControl('address'),'city')?.errors?.['minlength'].requiredLength}} characters</span>
+                </p>
+            </div>
+            <div class="form-control mb-4">
+                <input formControlName="street" name="street" required type="text" class="input input-bordered" placeholder="Street">
+                <p *ngIf="getChildControl(getControl('address'),'street')?.errors && getChildControl(getControl('address'),'street')?.touched" class="mt-2 text-yellow-400">
+                    <span *ngIf="getChildControl(getControl('address'),'street')?.errors?.['required']">Street is required</span>
+                    <span *ngIf="getChildControl(getControl('address'),'street')?.errors?.['minlength']">Street must be at least {{getChildControl(getControl('address'),'street')?.errors?.['minlength'].requiredLength}} characters</span>
+                </p>
+            </div>
+            <div class="form-control mb-4">
+                <input formControlName="code" name="code" required type="text" class="input input-bordered" placeholder="Postal Code">
+                <p *ngIf="getChildControl(getControl('address'),'code')?.errors && getChildControl(getControl('address'),'code')?.touched" class="mt-2 text-yellow-400">
+                    <span *ngIf="getChildControl(getControl('address'),'code')?.errors?.['required']">Postal is required</span>
+                </p>
+            </div>
+        </ng-container>
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Delivery Day</span>
+            </label>
+        </div>
+        <div  class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Any Day</span>
+                <input formControlName="delivery" value="any" type="radio" name="delivery" class="radio checked:bg-blue-500" />
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label cursor-pointer">
+                <span class="label-text">Specific Days</span>
+                <input (change)="setDeliveryValidity(getControl('delivery')?.value)" formControlName="delivery" value="specific" type="radio" name="delivery" class="radio checked:bg-blue-500" />
+            </label>
+        </div>
+        <div *ngIf="getControl('delivery')?.value == 'specific'" class="form-control mb-4">
+            <input formControlName="deliveryDays" name="deliveryDays" required type="text" class="input input-bordered" placeholder="Delivery Days">
+            <p *ngIf="getControl('deliveryDays')?.errors && getControl('deliveryDays')?.touched" class="mt-2 text-yellow-400">
+                <span *ngIf="getControl('deliveryDays')?.errors?.['required']">Delivery Days are required</span>
+            </p>
+        </div>
+        <div class="form-control mb-4">
+            <input formControlName="password" name="password" required type="password" class="input input-bordered" placeholder="Password">
+            <p *ngIf="getControl('password')?.errors && getControl('password')?.touched" class="mt-2 text-yellow-400">
+                <span *ngIf="getControl('password')?.errors?.['required']">Password is required</span>
+                <span *ngIf="getControl('password')?.errors?.['minlength']">Password should be at least 6 characters</span>
+            </p>
+        </div>
+        <div class="form-control mb-4">
+            <input formControlName="confirmPassword" name="confirmPassword" required type="password" class="input input-bordered" placeholder="Confirm Password">
+            <p *ngIf="getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched" class="mt-2 text-yellow-400">
+                <span *ngIf="getControl('confirmPassword')?.errors?.['required']">Password confirmation is required</span>
+                <span *ngIf="getControl('confirmPassword')?.errors?.['minlength']">Password confirmation should be at least 6 characters</span>
+            </p>
+            <p *ngIf="registerForm?.errors?.['passwordsDontMatch'] && !getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched" class="mt-2 text-yellow-400">
+                <span *ngIf="registerForm?.errors?.['passwordsDontMatch']">Password and password confirmation must match</span>
+            </p>
+        </div>
+        <div class="form-control mt-4">
+            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary">Register</button>
+        </div>
+        <div class="form-control mt-4 flex items-center gap-2">
+            or
+            <a routerLink="/login" class="text-primary">Login</a>
+        </div>
+    </form>
+</div>

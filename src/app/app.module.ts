@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ProductsComponent } from './components/products/products.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProdCartDirective } from './directives/prod-cart.directive';
 import { DateFormatterPipe } from './pipes/date-formatter.pipe';
 import { CartComponent } from './components/cart/cart.component';
@@ -20,6 +20,8 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { RegisterComponent } from './components/register/register.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,12 +41,14 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
     AddProductComponent,
     ProductFormComponent,
     EditProductComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

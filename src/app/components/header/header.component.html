@@ -1,6 +1,6 @@
 <div class="navbar h-[10vh] bg-base-100">
     <div class="flex-1">
-      <a *ngIf="user" class="btn btn-ghost text-xl">Welcome, {{user.username}}</a>
+      <a *ngIf="user" class="btn btn-ghost text-xl">Welcome, {{user.fullName}}</a>
       <a *ngIf="!user" class="btn btn-ghost text-xl">daisyUi</a>
       <ul class="flex items-center gap-4">
         <li><a class="btn btn-ghost" routerLink="home" routerLinkActive="btn-active">Home</a></li>
@@ -58,7 +58,7 @@
               <span class="badge">New</span>
             </a>
           </li>
-          <li *ngIf="user"><a>{{user.nid | dateFormatter:"FullDate"}}</a></li>
+          <li *ngIf="user"><a>{{'30110172100600' | dateFormatter:"FullDate"}}</a></li>
           <li><a>Settings</a></li>
           <li *ngIf="!user"><a routerLink="/login" class="btn btn-sm btn-primary">Login</a></li>
           <li *ngIf="user"><button onclick="logoutModal.showModal()" class="btn btn-sm bg-red-400 text-white">Logout</button></li>
